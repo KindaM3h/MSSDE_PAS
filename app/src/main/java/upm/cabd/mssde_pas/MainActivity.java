@@ -3,6 +3,7 @@ package upm.cabd.mssde_pas;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 
 public class MainActivity extends AppCompatActivity {
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
-    private static final String LOG_TAG = "ResponseCode";
+    private static final String LOG_TAG = "MainActivity";
     private IDatosAbiertosParquesRESTAPIService apiService;
 
     @Override
@@ -32,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button refreshButton = findViewById(R.id.refreshButton);
+        Button mapButton = findViewById(R.id.mapButton);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(IDatosAbiertosParquesRESTAPIService.class);
         refreshButton.setOnClickListener(this::updateParkData);
+        mapButton.setOnClickListener(this::viewOnMap);
     }
     public void updateParkData (View v) {
         Call<DatosAbiertosParques> call_async = apiService.getAllRegisteredParks();
@@ -69,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, t.getMessage());
             }
         });
+    }
+
+    public void viewOnMap (View v){
+        Log.i(LOG_TAG, "View On Map");
+        Intent mapActivityIntent = new Intent(this, MapActivity.class);
+        startActivity(mapActivityIntent);
     }
 }
