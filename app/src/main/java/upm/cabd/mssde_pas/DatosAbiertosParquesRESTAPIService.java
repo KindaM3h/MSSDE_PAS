@@ -12,5 +12,5 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 interface IDatosAbiertosParquesRESTAPIService {
 
     @GET("200761-0-parques-jardines.json")
-    Call<List<DatosAbiertosParques>> getAllRegisteredParks();
+    Call<DatosAbiertosParques> getAllRegisteredParks();
 }

@@ -38,15 +38,15 @@ public class MainActivity extends AppCompatActivity {
         refreshButton.setOnClickListener(this::updateParkData);
     }
     public void updateParkData (View v) {
-        Call<List<DatosAbiertosParques>> call_async = apiService.getAllRegisteredParks();
-        call_async.enqueue(new Callback<List<DatosAbiertosParques>>() {
+        Call<DatosAbiertosParques> call_async = apiService.getAllRegisteredParks();
+        call_async.enqueue(new Callback<DatosAbiertosParques>() {
             @Override
-            public void onResponse(@NonNull Call<List<DatosAbiertosParques>> call, @NonNull Response<List<DatosAbiertosParques>> response) {
+            public void onResponse(Call<DatosAbiertosParques> call, Response<DatosAbiertosParques> response) {
                 Log.i(LOG_TAG, String.valueOf(response.code()));
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<DatosAbiertosParques>> call, @NonNull Throwable t) {
+            public void onFailure(Call<DatosAbiertosParques> call, Throwable t) {
                 Toast.makeText(
                         getApplicationContext(),
                         "ERROR: " + t.getMessage(),
