@@ -18,7 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import upm.cabd.mssde_pas.DatosAbiertosParques.Context;
 import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
+import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 
 public class MainActivity extends AppCompatActivity {
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
@@ -43,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DatosAbiertosParques> call, Response<DatosAbiertosParques> response) {
                 Log.i(LOG_TAG, String.valueOf(response.code()));
+                DatosAbiertosParques parsedResponse = response.body();
+                Context queryContext = parsedResponse.getContext();
+                List<Graph> parkList = parsedResponse.getGraph();
+
+                if (null != queryContext){
+                    Log.i(LOG_TAG, queryContext.getGeo());
+                }
+                if (null != parkList){
+                    for (Graph parkInstance : parkList){
+                        Log.d(LOG_TAG, parkInstance.getTitle());
+                    }
+                }
             }
 
             @Override
