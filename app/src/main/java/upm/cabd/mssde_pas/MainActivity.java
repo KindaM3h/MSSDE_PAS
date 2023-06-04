@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Context;
 import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
+import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 
 public class MainActivity extends AppCompatActivity {
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
@@ -46,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         Call<DatosAbiertosParques> call_async = apiService.getAllRegisteredParks();
         call_async.enqueue(new Callback<DatosAbiertosParques>() {
             @Override
-            public void onResponse(Call<DatosAbiertosParques> call, Response<DatosAbiertosParques> response) {
+            public void onResponse(@NonNull Call<DatosAbiertosParques> call, @NonNull Response<DatosAbiertosParques> response) {
                 Log.i(LOG_TAG, String.valueOf(response.code()));
                 DatosAbiertosParques parsedResponse = response.body();
+                assert parsedResponse != null;
                 Context queryContext = parsedResponse.getContext();
                 List<Graph> parkList = parsedResponse.getGraph();
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<DatosAbiertosParques> call, Throwable t) {
+            public void onFailure(@NonNull Call<DatosAbiertosParques> call, @NonNull Throwable t) {
                 Toast.makeText(
                         getApplicationContext(),
                         "ERROR: " + t.getMessage(),

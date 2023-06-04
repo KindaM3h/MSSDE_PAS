@@ -1,4 +1,4 @@
-package upm.cabd.mssde_pas;
+package upm.cabd.mssde_pas.DatosAbiertosParques;
 import java.util.List;
 
 import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
@@ -9,6 +9,7 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 
 
 @SuppressWarnings("Unused")
+public
 interface IDatosAbiertosParquesRESTAPIService {
 
     @GET("200761-0-parques-jardines.json")
