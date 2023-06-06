@@ -56,18 +56,20 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn(View view) {
         email = editTextEmail.getText().toString();
         password = editTextPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Log.d(LOG_TAG, "Login Successful " + email);
-                            wakeMainActivity ();
-                        } else {
-                            Log.e(LOG_TAG, "Login Failed", task.getException());
+        if ((0 != email.length()) && (0 != password.length())) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(LOG_TAG, "Login Successful " + email);
+                                wakeMainActivity();
+                            } else {
+                                Log.e(LOG_TAG, "Login Failed", task.getException());
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void singUp(View view) {
