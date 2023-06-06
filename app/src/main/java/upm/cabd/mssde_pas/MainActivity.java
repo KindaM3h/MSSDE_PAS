@@ -4,6 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,55 +30,14 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
     private static final String LOG_TAG = "MainActivity";
-    private IDatosAbiertosParquesRESTAPIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button refreshButton = findViewById(R.id.refreshButton);
         Button mapButton = findViewById(R.id.mapButton);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(IDatosAbiertosParquesRESTAPIService.class);
-        refreshButton.setOnClickListener(this::updateParkData);
         mapButton.setOnClickListener(this::viewOnMap);
-    }
-    public void updateParkData (View v) {
-        Call<DatosAbiertosParques> call_async = apiService.getAllRegisteredParks();
-        call_async.enqueue(new Callback<DatosAbiertosParques>() {
-            @Override
-            public void onResponse(@NonNull Call<DatosAbiertosParques> call, @NonNull Response<DatosAbiertosParques> response) {
-                Log.i(LOG_TAG, String.valueOf(response.code()));
-                DatosAbiertosParques parsedResponse = response.body();
-                assert parsedResponse != null;
-                Context queryContext = parsedResponse.getContext();
-                List<Graph> parkList = parsedResponse.getGraph();
-
-                if (null != queryContext){
-                    Log.i(LOG_TAG, queryContext.getGeo());
-                }
-                if (null != parkList){
-                    for (Graph parkInstance : parkList){
-                        Log.d(LOG_TAG, parkInstance.getTitle());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<DatosAbiertosParques> call, @NonNull Throwable t) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        "ERROR: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
-                Log.e(LOG_TAG, t.getMessage());
-            }
-        });
     }
 
     public void viewOnMap (View v){
@@ -81,4 +45,15 @@ public class MainActivity extends AppCompatActivity {
         Intent mapActivityIntent = new Intent(this, MapActivity.class);
         startActivity(mapActivityIntent);
     }
+    public void bindAccelerometer (){
+        //TODO: Move this to the add new walk activity since sensor data should be handled there.
+        SensorManager sensorManager = (SensorManager) getSystemService(android.content.Context.SENSOR_SERVICE);
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            Log.e(LOG_TAG, "Success! we have an accelerometer");
+
+            Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sensorManager.registerListener((SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
 }

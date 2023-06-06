@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     private void singUp(View view) {
         email = editTextEmail.getText().toString();
         password = editTextPassword.getText().toString();
-        //TODO: Fix me!
+        //TODO: Missing implementation for adding users from the Login Screen. Tested by adding user in Firebase Console.
     }
 
     private void wakeMainActivity () {
