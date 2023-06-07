@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -28,6 +32,7 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
 
 public class MapActivity extends AppCompatActivity {
     private MapView map;
+    ParkListAdapter parkListAdapter;
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
     private IDatosAbiertosParquesRESTAPIService apiService;
 
@@ -41,6 +46,10 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         map = findViewById(R.id.map);
+        RecyclerView recyclerViewMap = findViewById(R.id.recyclerView);
+        parkListAdapter = new ParkListAdapter(this);
+        recyclerViewMap.setAdapter(parkListAdapter);
+        recyclerViewMap.setLayoutManager(new LinearLayoutManager(this));
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -88,6 +97,7 @@ public class MapActivity extends AppCompatActivity {
                     }
                 }
                 //TODO: Place this in the On Click method of a RecyclerView or ListView
+                parkListAdapter.setItems(parkList);
                 Graph graph = parkList.get(1);
                 mapHandler(graph.getLocation(), graph.getTitle());
             }
