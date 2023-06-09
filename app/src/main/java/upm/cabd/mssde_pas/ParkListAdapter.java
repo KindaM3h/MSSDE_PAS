@@ -1,5 +1,6 @@
 package upm.cabd.mssde_pas;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,9 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
         if (null != parkList){
             Graph graph = parkList.get(position);
             holder.parkTitleTextView.setText(graph.getTitle());
+            holder.itemView.setOnClickListener(view -> {
+                Log.i("Adapter", "Description: " + parkList.get(position).getOrganization().getOrganizationDesc());
+                });
         } else {
             holder.parkTitleTextView.setText("Sample Text!");
         }
