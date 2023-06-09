@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parkCardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/parkTitleTextView"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:cardBackgroundColor="@color/orange_200"
+        app:cardCornerRadius="@dimen/fab_margin">
+
+        <TextView
+            android:id="@+id/parkTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_margin="@dimen/fab_margin"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/parkDescriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:scrollbars = "vertical"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_gravity="bottom"
+            android:text="@string/description" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

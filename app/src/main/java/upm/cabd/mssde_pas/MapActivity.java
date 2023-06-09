@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.google.android.material.carousel.CarouselLayoutManager;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -49,7 +53,7 @@ public class MapActivity extends AppCompatActivity {
         RecyclerView recyclerViewMap = findViewById(R.id.recyclerView_map);
         parkListAdapter = new ParkListAdapter(this);
         recyclerViewMap.setAdapter(parkListAdapter);
-        recyclerViewMap.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewMap.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

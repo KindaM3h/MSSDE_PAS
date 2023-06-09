@@ -1,5 +1,6 @@
 package upm.cabd.mssde_pas;
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -17,9 +19,11 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
 
     class ParkViewHolder extends RecyclerView.ViewHolder{
         private final TextView parkTitleTextView;
+        private final TextView parkDescriptionTextView;
         public ParkViewHolder(@NonNull View itemView) {
             super(itemView);
             parkTitleTextView = itemView.findViewById(R.id.parkTitleTextView);
+            parkDescriptionTextView = itemView.findViewById(R.id.parkDescriptionTextView);
         }
     }
 
@@ -47,6 +51,8 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
         if (null != parkList){
             Graph graph = parkList.get(position);
             holder.parkTitleTextView.setText(graph.getTitle());
+            holder.parkDescriptionTextView.setText(graph.getOrganization().getOrganizationDesc());
+            holder.parkDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
             holder.itemView.setOnClickListener(view -> {
                 Log.i("Adapter", "Description: " + parkList.get(position).getOrganization().getOrganizationDesc());
                 });
