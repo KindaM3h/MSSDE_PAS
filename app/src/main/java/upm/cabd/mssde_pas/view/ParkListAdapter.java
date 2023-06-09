@@ -1,4 +1,4 @@
-package upm.cabd.mssde_pas;
+package upm.cabd.mssde_pas.view;
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
+import upm.cabd.mssde_pas.R;
 
 public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkViewHolder> {
 
@@ -29,9 +30,13 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
 
     private final LayoutInflater layoutInflater;
     List<Graph> parkList;
+    private OnParkClick onParkClick;
+    private Context context;
 
-    public ParkListAdapter (Context context){
+    public ParkListAdapter (Context context, OnParkClick onParkClick){
         layoutInflater = LayoutInflater.from(context);
+        this.context = context;
+        this.onParkClick = onParkClick;
     }
 
     public void setItems(List<Graph> externalParkList){
@@ -55,6 +60,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
             holder.parkDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
             holder.itemView.setOnClickListener(view -> {
                 Log.i("Adapter", "Description: " + parkList.get(position).getOrganization().getOrganizationDesc());
+                onParkClick.onItemClick(parkList.get(position));
                 });
         } else {
             holder.parkTitleTextView.setText("Sample Text!");

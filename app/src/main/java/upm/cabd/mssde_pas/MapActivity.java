@@ -33,8 +33,10 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
+import upm.cabd.mssde_pas.view.OnParkClick;
+import upm.cabd.mssde_pas.view.ParkListAdapter;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity implements OnParkClick {
     private MapView map;
     ParkListAdapter parkListAdapter;
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
@@ -51,7 +53,7 @@ public class MapActivity extends AppCompatActivity {
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         map = findViewById(R.id.map);
         RecyclerView recyclerViewMap = findViewById(R.id.recyclerView_map);
-        parkListAdapter = new ParkListAdapter(this);
+        parkListAdapter = new ParkListAdapter(this, this::onItemClick);
         recyclerViewMap.setAdapter(parkListAdapter);
         recyclerViewMap.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
         Retrofit retrofit = new Retrofit.Builder()
@@ -100,10 +102,7 @@ public class MapActivity extends AppCompatActivity {
                         Log.d(LOG_TAG, parkInstance.getTitle());
                     }
                 }
-                //TODO: Place this in the On Click method of a RecyclerView or ListView
                 parkListAdapter.setItems(parkList);
-                Graph graph = parkList.get(1);
-                mapHandler(graph.getLocation(), graph.getTitle());
             }
 
             @Override
@@ -116,5 +115,10 @@ public class MapActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Graph graph) {
+        mapHandler(graph.getLocation(), graph.getTitle());
     }
 }
