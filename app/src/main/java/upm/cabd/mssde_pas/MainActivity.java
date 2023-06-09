@@ -2,6 +2,7 @@ package upm.cabd.mssde_pas;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -14,6 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.sql.Date;
 import java.util.List;
@@ -36,16 +40,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button mapButton = findViewById(R.id.mapButton);
+        ExtendedFloatingActionButton mapButton = findViewById(R.id.map_fab);
+        ExtendedFloatingActionButton addRouteButton = findViewById(R.id.add_fab);
+        MaterialToolbar materialToolbar = findViewById(R.id.materialToolbar);
+        RecyclerView recyclerViewMain = findViewById(R.id.recyclerView_main);
+        materialToolbar.setNavigationIcon(R.drawable.round_navigate_before_24);
         mapButton.setOnClickListener(this::viewOnMap);
+        addRouteButton.setOnClickListener(this::addRoute);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
-    public void viewOnMap (View v){
+    private void addRoute(View view) {
+        Log.i(LOG_TAG, "Add new Route");
+    }
+
+    private void viewOnMap (View v){
         Log.i(LOG_TAG, "View On Map");
         Intent mapActivityIntent = new Intent(this, MapActivity.class);
         startActivity(mapActivityIntent);
     }
-    public void bindAccelerometer (){
+    private void bindAccelerometer (){
         //TODO: Move this to the add new walk activity since sensor data should be handled there.
         SensorManager sensorManager = (SensorManager) getSystemService(android.content.Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {

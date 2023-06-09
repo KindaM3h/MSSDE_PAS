@@ -4,4 +4,6 @@
     <string name="password">password\n</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Log In</string>
+    <string name="add_route">Add Route</string>
+    <string name="show_map">View Map</string>
 </resources>

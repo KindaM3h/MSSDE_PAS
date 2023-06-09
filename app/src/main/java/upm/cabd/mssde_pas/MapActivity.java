@@ -46,7 +46,7 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         map = findViewById(R.id.map);
-        RecyclerView recyclerViewMap = findViewById(R.id.recyclerView);
+        RecyclerView recyclerViewMap = findViewById(R.id.recyclerView_map);
         parkListAdapter = new ParkListAdapter(this);
         recyclerViewMap.setAdapter(parkListAdapter);
         recyclerViewMap.setLayoutManager(new LinearLayoutManager(this));
