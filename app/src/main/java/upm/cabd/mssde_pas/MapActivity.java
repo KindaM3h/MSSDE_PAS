@@ -33,6 +33,7 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
+import upm.cabd.mssde_pas.localDb.AppDataBase;
 import upm.cabd.mssde_pas.localDb.ParkEntity;
 import upm.cabd.mssde_pas.view.OnParkClick;
 import upm.cabd.mssde_pas.view.ParkListAdapter;
@@ -102,9 +103,10 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
                     for (Graph parkInstance : parkList){
                         ParkEntity parkEntity = new ParkEntity (parkInstance.getTitle(),
                                                                 parkInstance.getOrganization().getOrganizationDesc(),
-                                                                parkInstance.getLocation(),
                                                                 parkInstance.getOrganization().getAccesibility());
-                        Log.d(LOG_TAG, parkInstance.getTitle());
+                        Log.d(LOG_TAG, parkEntity.getTitle());
+                        AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
+                        appDataBase.parkDao().insertPark(parkEntity);
                     }
                 }
                 parkListAdapter.setItems(parkList);

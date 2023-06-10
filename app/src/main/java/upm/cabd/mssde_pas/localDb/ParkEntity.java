@@ -13,22 +13,17 @@ public class ParkEntity {
     @PrimaryKey(autoGenerate = true)
     protected int uid;
     @ColumnInfo(name = "title")
-    private String title;
+    private final String title;
 
     @ColumnInfo(name = "description")
-    private String description;
-
-    @ColumnInfo(name = "location")
-    private Location location;
-
+    private final String description;
     @ColumnInfo(name = "accessibility")
-    private int accessibility;
+    private final int accessibility;
 
 
-    public ParkEntity(String title, String description, Location location, int accessibility) {
+    public ParkEntity(String title, String description, int accessibility) {
         this.title = title;
         this.description = description;
-        this.location = location;
         this.accessibility = accessibility;
     }
 
@@ -36,4 +31,15 @@ public class ParkEntity {
         return uid;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getAccessibility() {
+        return accessibility;
+    }
 }
