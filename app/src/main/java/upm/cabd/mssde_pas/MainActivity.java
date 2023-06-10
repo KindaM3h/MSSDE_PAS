@@ -2,6 +2,7 @@ package upm.cabd.mssde_pas;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -28,6 +29,7 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 import upm.cabd.mssde_pas.localDb.AppDataBase;
 import upm.cabd.mssde_pas.localDb.ParkEntity;
+import upm.cabd.mssde_pas.view.RouteListAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity";
@@ -42,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         ExtendedFloatingActionButton addRouteButton = findViewById(R.id.add_fab);
         MaterialToolbar materialToolbar = findViewById(R.id.materialToolbar);
         RecyclerView recyclerViewMain = findViewById(R.id.recyclerView_main);
-        materialToolbar.setNavigationIcon(R.drawable.round_navigate_before_24);
+        recyclerViewMain.setLayoutManager(new LinearLayoutManager(this));
+        RouteListAdapter routeListAdapter = new RouteListAdapter(this);
+        recyclerViewMain.setAdapter(routeListAdapter);
         mapButton.setOnClickListener(this::viewOnMap);
         addRouteButton.setOnClickListener(this::addRoute);
         Retrofit retrofit = new Retrofit.Builder()
