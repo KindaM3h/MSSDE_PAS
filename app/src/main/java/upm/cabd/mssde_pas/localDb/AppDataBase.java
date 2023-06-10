@@ -5,7 +5,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {ParkEntity.class}, version = 1)
+@Database(entities = {ParkEntity.class}, version = 2)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract ParkDao parkDao();
     private static final String DB_NAME = "AppDataBase";

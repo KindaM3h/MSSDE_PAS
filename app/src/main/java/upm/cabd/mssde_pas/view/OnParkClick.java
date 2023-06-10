@@ -1,7 +1,7 @@
 package upm.cabd.mssde_pas.view;
 
-import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
+import upm.cabd.mssde_pas.localDb.ParkEntity;
 
 public interface OnParkClick {
-    void onItemClick (Graph graph);
+    void onItemClick (ParkEntity parkEntity);
 }

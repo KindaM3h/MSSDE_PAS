@@ -9,12 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
+import upm.cabd.mssde_pas.localDb.ParkEntity;
 import upm.cabd.mssde_pas.R;
 
 public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkViewHolder> {
@@ -32,7 +30,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
     }
 
     private final LayoutInflater layoutInflater;
-    List<Graph> parkList;
+    List<ParkEntity> parkList;
     private OnParkClick onParkClick;
     private Context context;
 
@@ -42,7 +40,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
         this.onParkClick = onParkClick;
     }
 
-    public void setItems(List<Graph> externalParkList){
+    public void setItems(List<ParkEntity> externalParkList){
         parkList = externalParkList;
         notifyDataSetChanged();
     }
@@ -57,13 +55,13 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
     @Override
     public void onBindViewHolder(@NonNull ParkListAdapter.ParkViewHolder holder, int position) {
         if (null != parkList){
-            Graph graph = parkList.get(position);
-            holder.parkTitleTextView.setText(graph.getTitle());
-            holder.parkDescriptionTextView.setText(graph.getOrganization().getOrganizationDesc());
+            ParkEntity parkEntity = parkList.get(position);
+            holder.parkTitleTextView.setText(parkEntity.getTitle());
+            holder.parkDescriptionTextView.setText(parkEntity.getDescription());
             holder.parkDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-            holder.parkAccessibilityProgressBar.setProgress(parkList.get(position).getOrganization().getAccesibility());
+            holder.parkAccessibilityProgressBar.setProgress(parkEntity.getAccessibility());
             holder.itemView.setOnClickListener(view -> {
-                Log.i("Adapter", "Description: " + parkList.get(position).getOrganization().getOrganizationDesc());
+                Log.i("Adapter", "Description: " + parkList.get(position).getDescription());
                 onParkClick.onItemClick(parkList.get(position));
                 });
         } else {
