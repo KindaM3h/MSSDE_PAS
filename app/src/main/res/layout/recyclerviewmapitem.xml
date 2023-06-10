@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:cardBackgroundColor="@color/orange_200"
+        app:cardBackgroundColor="@color/gray_200"
         app:cardCornerRadius="@dimen/fab_margin">
 
         <TextView
@@ -24,15 +24,58 @@
             android:text="@string/title"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/parkDescriptionTextView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="5"
-            android:scrollbars = "vertical"
+            android:orientation="vertical"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_margin="@dimen/fab_margin"
-            android:layout_gravity="bottom"
-            android:text="@string/description" />
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:minHeight="@dimen/font_size_accessibility_bar"
+                android:layout_weight="0.20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_accessibility_bar"
+                    android:text="@string/accessibility"
+                    android:textColor="@color/orange_200"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:minWidth="@dimen/fab_margin" />
+
+                <ProgressBar
+                    android:id="@+id/parkAccessibilityProgressBar"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:max="5"
+                    android:min="0"
+                    android:progressBackgroundTint="@color/gray_500"
+                    android:progressTint="@color/orange_200" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/fab_margin" />
+
+            <TextView
+                android:id="@+id/parkDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.80"
+                android:maxLines="5"
+                android:scrollbars="vertical"
+                android:text="@string/description" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

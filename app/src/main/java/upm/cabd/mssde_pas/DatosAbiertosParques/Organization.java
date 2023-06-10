@@ -11,7 +11,7 @@ public class Organization {
     private String organizationDesc;
     @SerializedName("accesibility")
     @Expose
-    private String accesibility;
+    private int accesibility;
     @SerializedName("schedule")
     @Expose
     private String schedule;
@@ -30,11 +30,11 @@ public class Organization {
         this.organizationDesc = organizationDesc;
     }
 
-    public String getAccesibility() {
+    public int getAccesibility() {
         return accesibility;
     }
 
-    public void setAccesibility(String accesibility) {
+    public void setAccesibility(int accesibility) {
         this.accesibility = accesibility;
     }
 

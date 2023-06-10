@@ -8,4 +8,5 @@
     <string name="show_map">View Map</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="accessibility">Accessibility Rating</string>
 </resources>

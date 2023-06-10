@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,10 +22,12 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
     class ParkViewHolder extends RecyclerView.ViewHolder{
         private final TextView parkTitleTextView;
         private final TextView parkDescriptionTextView;
+        private final ProgressBar parkAccessibilityProgressBar;
         public ParkViewHolder(@NonNull View itemView) {
             super(itemView);
             parkTitleTextView = itemView.findViewById(R.id.parkTitleTextView);
             parkDescriptionTextView = itemView.findViewById(R.id.parkDescriptionTextView);
+            parkAccessibilityProgressBar = itemView.findViewById(R.id.parkAccessibilityProgressBar);
         }
     }
 
@@ -58,6 +61,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
             holder.parkTitleTextView.setText(graph.getTitle());
             holder.parkDescriptionTextView.setText(graph.getOrganization().getOrganizationDesc());
             holder.parkDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
+            holder.parkAccessibilityProgressBar.setProgress(parkList.get(position).getOrganization().getAccesibility());
             holder.itemView.setOnClickListener(view -> {
                 Log.i("Adapter", "Description: " + parkList.get(position).getOrganization().getOrganizationDesc());
                 onParkClick.onItemClick(parkList.get(position));

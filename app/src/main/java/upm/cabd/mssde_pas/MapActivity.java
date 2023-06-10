@@ -53,7 +53,7 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         map = findViewById(R.id.map);
         RecyclerView recyclerViewMap = findViewById(R.id.recyclerView_map);
-        parkListAdapter = new ParkListAdapter(this, this::onItemClick);
+        parkListAdapter = new ParkListAdapter(this, this);
         recyclerViewMap.setAdapter(parkListAdapter);
         recyclerViewMap.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
         Retrofit retrofit = new Retrofit.Builder()
