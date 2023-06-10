@@ -9,16 +9,16 @@ public class DatosAbiertosParques {
 
     @SerializedName("@context")
     @Expose
-    private Context context;
+    private QueryContext context;
     @SerializedName("@graph")
     @Expose
     private List<Graph> graph;
 
-    public Context getContext() {
+    public QueryContext getContext() {
         return context;
     }
 
-    public void setContext(Context context) {
+    public void setContext(QueryContext context) {
         this.context = context;
     }
 

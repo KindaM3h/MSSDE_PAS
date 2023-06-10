@@ -28,11 +28,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import upm.cabd.mssde_pas.DatosAbiertosParques.Context;
+import upm.cabd.mssde_pas.DatosAbiertosParques.QueryContext;
 import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
+import upm.cabd.mssde_pas.localDb.ParkEntity;
 import upm.cabd.mssde_pas.view.OnParkClick;
 import upm.cabd.mssde_pas.view.ParkListAdapter;
 
@@ -91,7 +92,7 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
                 Log.i(LOG_TAG, String.valueOf(response.code()));
                 DatosAbiertosParques parsedResponse = response.body();
                 assert parsedResponse != null;
-                Context queryContext = parsedResponse.getContext();
+                QueryContext queryContext = parsedResponse.getContext();
                 parkList = parsedResponse.getGraph();
 
                 if (null != queryContext){
@@ -99,6 +100,10 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
                 }
                 if (null != parkList){
                     for (Graph parkInstance : parkList){
+                        ParkEntity parkEntity = new ParkEntity (parkInstance.getTitle(),
+                                                                parkInstance.getOrganization().getOrganizationDesc(),
+                                                                parkInstance.getLocation(),
+                                                                parkInstance.getOrganization().getAccesibility());
                         Log.d(LOG_TAG, parkInstance.getTitle());
                     }
                 }

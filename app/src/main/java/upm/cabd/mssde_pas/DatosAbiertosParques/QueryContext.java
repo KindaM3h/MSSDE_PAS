@@ -3,7 +3,7 @@ package upm.cabd.mssde_pas.DatosAbiertosParques;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-public class Context {
+public class QueryContext {
 
     @SerializedName("c")
     @Expose

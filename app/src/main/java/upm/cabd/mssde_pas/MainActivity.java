@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import upm.cabd.mssde_pas.DatosAbiertosParques.Context;
+import upm.cabd.mssde_pas.DatosAbiertosParques.QueryContext;
 import upm.cabd.mssde_pas.DatosAbiertosParques.DatosAbiertosParques;
 import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
