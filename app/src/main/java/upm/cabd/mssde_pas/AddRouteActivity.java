@@ -51,7 +51,6 @@ public class AddRouteActivity extends AppCompatActivity {
                 AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
                 appDataBase.routeDAO().insertRoute(routeEntity);
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
-                intent.putExtra("UserAdd", String.valueOf(addRouteName.getText()));
                 startActivity(intent);
             }
         });

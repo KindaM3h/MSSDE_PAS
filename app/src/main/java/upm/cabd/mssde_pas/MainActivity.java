@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +31,7 @@ import upm.cabd.mssde_pas.DatosAbiertosParques.Graph;
 import upm.cabd.mssde_pas.DatosAbiertosParques.IDatosAbiertosParquesRESTAPIService;
 import upm.cabd.mssde_pas.localDb.AppDataBase;
 import upm.cabd.mssde_pas.localDb.ParkEntity;
+import upm.cabd.mssde_pas.localDb.RouteEntity;
 import upm.cabd.mssde_pas.view.RouteListAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
     private IDatosAbiertosParquesRESTAPIService apiService;
     private AppDataBase appDataBase;
+    private RouteListAdapter routeListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         MaterialToolbar materialToolbar = findViewById(R.id.materialToolbar);
         RecyclerView recyclerViewMain = findViewById(R.id.recyclerView_main);
         recyclerViewMain.setLayoutManager(new LinearLayoutManager(this));
-        RouteListAdapter routeListAdapter = new RouteListAdapter(this);
+        routeListAdapter = new RouteListAdapter(this);
         recyclerViewMain.setAdapter(routeListAdapter);
         mapButton.setOnClickListener(this::viewOnMap);
         addRouteButton.setOnClickListener(this::addRoute);
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d(LOG_TAG, "Data is available in local db, logs " + appDataBase.parkDao().getAllParks().size());
         }
+        List<RouteEntity> routeEntityList = appDataBase.routeDAO().getAllRoutes();
+        routeListAdapter.setItems(routeEntityList);
     }
 
     private void addRoute(View view) {
