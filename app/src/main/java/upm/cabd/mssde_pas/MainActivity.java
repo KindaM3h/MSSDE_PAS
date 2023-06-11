@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity";
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
     private IDatosAbiertosParquesRESTAPIService apiService;
+    private AppDataBase appDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,16 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(IDatosAbiertosParquesRESTAPIService.class);
+        appDataBase = AppDataBase.getDbInstance(getApplicationContext());
     }
     @Override
     protected void onStart() {
         super.onStart();
-        updateParkData();
+        if (appDataBase.parkDao().getAllParks().size() == 0) {
+            updateParkData();
+        } else {
+            Log.d(LOG_TAG, "Data is available in local db, logs " + appDataBase.parkDao().getAllParks().size());
+        }
     }
 
     private void addRoute(View view) {
@@ -91,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                                 parkInstance.getLocation().getLatitude(),
                                 parkInstance.getLocation().getLongitude());
                         Log.d(LOG_TAG, parkEntity.getTitle());
-                        AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
                         appDataBase.parkDao().insertPark(parkEntity);
                     }
                 }

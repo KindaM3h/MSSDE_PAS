@@ -60,10 +60,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkVi
             holder.parkDescriptionTextView.setText(parkEntity.getDescription());
             holder.parkDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
             holder.parkAccessibilityProgressBar.setProgress(parkEntity.getAccessibility());
-            holder.itemView.setOnClickListener(view -> {
-                Log.i("Adapter", "Description: " + parkList.get(position).getDescription());
-                onParkClick.onItemClick(parkList.get(position));
-                });
+            holder.itemView.setOnClickListener(view -> onParkClick.onItemClick(parkList.get(position)));
         } else {
             holder.parkTitleTextView.setText("Sample Text!");
         }
