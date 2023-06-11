@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void addRoute(View view) {
         Log.i(LOG_TAG, "Add new Route");
+        Intent intent = new Intent(this, AddRouteActivity.class);
+        startActivity(intent);
     }
 
     private void viewOnMap (View v){

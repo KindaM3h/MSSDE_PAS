@@ -9,4 +9,5 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="accessibility">Accessibility Rating</string>
+    <string name="save">Save</string>
 </resources>

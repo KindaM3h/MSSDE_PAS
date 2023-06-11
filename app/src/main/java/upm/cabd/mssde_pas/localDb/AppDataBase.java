@@ -5,9 +5,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {ParkEntity.class}, version = 2)
+@Database(entities = {ParkEntity.class, RouteEntity.class}, version = 3)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract ParkDao parkDao();
+    public abstract RouteDAO routeDAO();
     private static final String DB_NAME = "AppDataBase";
     private static AppDataBase INSTANCE;
 
@@ -16,6 +17,7 @@ public abstract class AppDataBase extends RoomDatabase {
             INSTANCE = Room.databaseBuilder (context.getApplicationContext(),
                                              AppDataBase.class,
                                              DB_NAME)
+                    .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build();
         }

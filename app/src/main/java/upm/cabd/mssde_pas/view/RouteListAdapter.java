@@ -10,12 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import upm.cabd.mssde_pas.R;
+import upm.cabd.mssde_pas.localDb.ParkEntity;
+import upm.cabd.mssde_pas.localDb.RouteEntity;
 
 public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteViewHolder>{
-    // TODO: Add a way to update data into here and a way to bind a OnClick method from the Activity.
+    // TODO: Add a OnClick method from the Activity.
     private Context context;
     private final LayoutInflater layoutInflater;
+    private List<RouteEntity> routeList;
 
     public RouteListAdapter (Context context){
         this.context = context;
@@ -30,15 +35,15 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
     @Override
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
-        // TODO: Don't hardcode that.
-        String string = "Sample Text " + position;
-        holder.routeTitleTextView.setText(string);
+        holder.routeTitleTextView.setText(routeList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        // TODO: Don't hardcode that.
-        int size = 10;
+        int size = 0;
+        if (null != routeList){
+            size = routeList.size();
+        }
         return size;
     }
 
@@ -51,5 +56,10 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
             routeCardView = itemView.findViewById(R.id.routeCardView);
             routeTitleTextView = itemView.findViewById(R.id.routeTitleTextView);
         }
+    }
+
+    public void setItems(List<RouteEntity> routeEntityList){
+        routeList = routeEntityList;
+        notifyDataSetChanged();
     }
 }
