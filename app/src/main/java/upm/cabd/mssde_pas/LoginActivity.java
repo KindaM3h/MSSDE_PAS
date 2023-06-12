@@ -3,12 +3,14 @@ package upm.cabd.mssde_pas;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -75,7 +77,24 @@ public class LoginActivity extends AppCompatActivity {
     private void singUp(View view) {
         email = editTextEmail.getText().toString();
         password = editTextPassword.getText().toString();
-        //TODO: Missing implementation for adding users from the Login Screen. Tested by adding user in Firebase Console.
+        if ((0 != email.length()) && (0 != password.length())) {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Log.d(LOG_TAG, "User Registered " + email);
+                            wakeMainActivity();
+                        } else {
+                            Log.e(LOG_TAG, "Add User Failed", task.getException());
+                            Toast toast = new Toast(getApplicationContext());
+                            toast.setText((CharSequence) task.getException());
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                });
+        }
     }
 
     private void wakeMainActivity () {
