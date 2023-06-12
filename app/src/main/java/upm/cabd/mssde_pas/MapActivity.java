@@ -15,6 +15,7 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.util.List;
 
+import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
 import upm.cabd.mssde_pas.localDb.AppDataBase;
 import upm.cabd.mssde_pas.localDb.ParkEntity;
 import upm.cabd.mssde_pas.view.OnParkClick;
@@ -35,6 +36,7 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
         parkListAdapter = new ParkListAdapter(this, this);
         recyclerViewMap.setAdapter(parkListAdapter);
         recyclerViewMap.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+        initMap();
     }
 
     @Override
@@ -47,9 +49,13 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
         }
         parkListAdapter.setItems(parkList);
     }
-
-    private void mapHandler (Double latitude, double longitude, String title) {
-        GeoPoint geoPoint = new GeoPoint(latitude, longitude);
+    public void initMap(){
+        GeoPoint geoPoint = new GeoPoint(40.416775, -3.703790);
+        map.getController().setZoom(14.50);
+        map.getController().setCenter(geoPoint);
+    }
+    private void mapHandler (Location location, String title) {
+        GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         map.setBuiltInZoomControls(true);
         map.getController().setZoom(14.50);
@@ -64,8 +70,7 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
 
     @Override
     public void onItemClick(ParkEntity parkEntity) {
-        mapHandler (parkEntity.getLatitude(),
-                    parkEntity.getLongitude(),
+        mapHandler (parkEntity.getLocation(),
                     parkEntity.getTitle());
     }
 }

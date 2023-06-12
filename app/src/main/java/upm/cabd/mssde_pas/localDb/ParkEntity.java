@@ -53,4 +53,10 @@ public class ParkEntity {
     public double getLongitude() {
         return longitude;
     }
+    public Location getLocation(){
+        Location location = new Location();
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        return location;
+    }
 }

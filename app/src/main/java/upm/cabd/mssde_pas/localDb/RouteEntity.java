@@ -70,32 +70,45 @@ public class RouteEntity {
     public double getStartLatitude() {
         return startLatitude;
     }
-
     public void setStartLatitude(double startLatitude) {
         this.startLatitude = startLatitude;
     }
-
     public double getStartLongitude() {
         return startLongitude;
     }
-
     public void setStartLongitude(double startLongitude) {
         this.startLongitude = startLongitude;
     }
-
+    public Location getStartLocation(){
+        Location location = new Location();
+        location.setLatitude(startLatitude);
+        location.setLongitude(startLongitude);
+        return location;
+    }
+    public void setStartLocation(Location location){
+        startLatitude = location.getLatitude();
+        startLongitude = location.getLongitude();
+    }
     public double getEndLatitude() {
         return endLatitude;
     }
-
     public void setEndLatitude(double endLatitude) {
         this.endLatitude = endLatitude;
     }
-
     public double getEndLongitude() {
         return endLongitude;
     }
-
     public void setEndLongitude(double endLongitude) {
         this.endLongitude = endLongitude;
+    }
+    public Location getEndLocation(){
+        Location location = new Location();
+        location.setLatitude(endLatitude);
+        location.setLongitude(endLongitude);
+        return location;
+    }
+    public void setEndLocation(Location location){
+        endLatitude = location.getLatitude();
+        endLongitude = location.getLongitude();
     }
 }
