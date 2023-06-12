@@ -6,10 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -121,15 +117,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void bindAccelerometer (){
-        //TODO: Move this to the add new walk activity since sensor data should be handled there.
-        SensorManager sensorManager = (SensorManager) getSystemService(android.content.Context.SENSOR_SERVICE);
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-            Log.i(LOG_TAG, "Success! we have an accelerometer");
-
-            Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sensorManager.registerListener((SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
-
 }
