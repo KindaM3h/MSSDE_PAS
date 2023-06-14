@@ -9,11 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ExtendedFloatingActionButton mapButton = findViewById(R.id.map_fab);
         ExtendedFloatingActionButton addRouteButton = findViewById(R.id.add_fab);
         MaterialToolbar materialToolbar = findViewById(R.id.materialToolbar);
+        setSupportActionBar(materialToolbar);
         RecyclerView recyclerViewMain = findViewById(R.id.recyclerView_main);
         recyclerViewMain.setLayoutManager(new LinearLayoutManager(this));
         routeListAdapter = new RouteListAdapter(this);
@@ -76,6 +81,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.logoff){
+            Log.i(LOG_TAG, "Log off!");
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseAuth.getInstance().signOut();
+            assert firebaseUser != null;
+            Toast.makeText(this, getText(R.string.logoff) +" "+ firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            startActivity(loginActivity);
+        }
+        return true;
     }
     @Override
     protected void onStart() {

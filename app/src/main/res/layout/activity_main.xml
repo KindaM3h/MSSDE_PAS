@@ -15,8 +15,7 @@
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:navigationIcon="@drawable/round_navigate_before_24"
-        app:navigationIconTint="@color/gray_200"/>
+        app:titleTextColor="@color/gray_200"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_main"
