@@ -62,4 +62,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
         routeList = routeEntityList;
         notifyDataSetChanged();
     }
+    public RouteEntity returnCurrentRouteEntity (int position){
+        return routeList.get(position);
+    }
 }

@@ -43,7 +43,7 @@ public class MapActivity extends AppCompatActivity implements OnParkClick {
     protected void onStart() {
         super.onStart();
         AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
-        List<ParkEntity> parkList = appDataBase.parkDao().getAllParks();
+        List<ParkEntity> parkList = appDataBase.parkDAO().getAllParks();
         for (ParkEntity parkEntity : parkList){
             Log.d(LOG_TAG, parkEntity.getTitle());
         }

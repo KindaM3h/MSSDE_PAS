@@ -18,10 +18,10 @@
         android:id="@+id/addRouteDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/fab_margin"
         android:layout_margin="@dimen/fab_margin"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:minHeight="@dimen/fab_margin" />
 
     <RatingBar
         android:id="@+id/addRouteUserRating"
@@ -34,9 +34,36 @@
         android:id="@+id/addRouteUserAccessibility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
         android:max="5"
-        android:min="0"
-        android:layout_margin="@dimen/fab_margin" />
+        android:min="0" />
+
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray_200"
+            android:buttonTint="@color/orange_200"
+            android:foregroundTint="@color/blue_gray_700"
+            android:text="Log Location" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Accelerometer" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Magnetometer" />
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/addRouteSave"

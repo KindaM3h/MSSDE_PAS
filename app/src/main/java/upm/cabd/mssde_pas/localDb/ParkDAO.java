@@ -8,7 +8,7 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface ParkDao {
+public interface ParkDAO {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insertPark (ParkEntity parkEntity);
 

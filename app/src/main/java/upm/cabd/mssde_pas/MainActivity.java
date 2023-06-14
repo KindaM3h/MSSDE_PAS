@@ -2,6 +2,7 @@ package upm.cabd.mssde_pas;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,14 +57,33 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         apiService = retrofit.create(IDatosAbiertosParquesRESTAPIService.class);
         appDataBase = AppDataBase.getDbInstance(getApplicationContext());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Toast toast = new Toast(getApplicationContext());
+                int position = viewHolder.getAdapterPosition();
+                RouteEntity routeEntity = routeListAdapter.returnCurrentRouteEntity(position);
+                if (direction == ItemTouchHelper.LEFT){
+                    //TODO: Do something!
+                }
+                if (direction == ItemTouchHelper.RIGHT){
+                    //TODO: Do something else!
+                }
+            }
+        });
     }
     @Override
     protected void onStart() {
         super.onStart();
-        if (appDataBase.parkDao().getAllParks().size() == 0) {
+        if (appDataBase.parkDAO().getAllParks().size() == 0) {
             updateParkData();
         } else {
-            Log.d(LOG_TAG, "Data is available in local db, logs " + appDataBase.parkDao().getAllParks().size());
+            Log.d(LOG_TAG, "Data is available in local db, logs " + appDataBase.parkDAO().getAllParks().size());
         }
         List<RouteEntity> routeEntityList = appDataBase.routeDAO().getAllRoutes();
         routeListAdapter.setItems(routeEntityList);
@@ -101,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                 parkInstance.getLocation().getLatitude(),
                                 parkInstance.getLocation().getLongitude());
                         Log.d(LOG_TAG, parkEntity.getTitle());
-                        appDataBase.parkDao().insertPark(parkEntity);
+                        appDataBase.parkDAO().insertPark(parkEntity);
                     }
                 }
             }

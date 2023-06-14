@@ -7,7 +7,7 @@ import android.content.Context;
 
 @Database(entities = {ParkEntity.class, RouteEntity.class}, version = 3)
 public abstract class AppDataBase extends RoomDatabase {
-    public abstract ParkDao parkDao();
+    public abstract ParkDAO parkDAO();
     public abstract RouteDAO routeDAO();
     private static final String DB_NAME = "AppDataBase";
     private static AppDataBase INSTANCE;
