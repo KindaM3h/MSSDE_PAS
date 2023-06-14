@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UPM_MSSDE_PAS</string>
+    <string name="app_name">DailyWalk</string>
     <string name="email">email</string>
     <string name="password">password\n</string>
     <string name="sign_up">Sign Up</string>
