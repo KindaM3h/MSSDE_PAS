@@ -2,4 +2,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="font_size_accessibility_bar">12sp</dimen>
+    <dimen name="image_radius">50dp</dimen>
+    <dimen name="stroke_with">1sp</dimen>
 </resources>

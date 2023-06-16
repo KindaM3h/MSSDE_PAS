@@ -4,11 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,6 +40,11 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     @Override
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
         holder.routeTitleTextView.setText(routeList.get(position).getName());
+        Picasso.get()
+                .load(routeList.get(position).getStringPhoto())
+                .placeholder(R.drawable.outline_park_24)
+                .fit()
+                .into(holder.routePhoto);
     }
 
     @Override
@@ -50,11 +59,13 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     static class RouteViewHolder extends RecyclerView.ViewHolder {
         private final CardView routeCardView;
         private final TextView routeTitleTextView;
+        private final ImageView routePhoto;
 
         public RouteViewHolder(@NonNull View itemView) {
             super(itemView);
             routeCardView = itemView.findViewById(R.id.routeCardView);
             routeTitleTextView = itemView.findViewById(R.id.routeTitleTextView);
+            routePhoto = itemView.findViewById(R.id.imageView);
         }
     }
 

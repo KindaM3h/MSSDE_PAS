@@ -2,6 +2,7 @@ package upm.cabd.mssde_pas.localDb;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
@@ -27,6 +28,8 @@ public class RouteEntity {
     private double endLatitude;
     @ColumnInfo(name = "endLongitude")
     private double endLongitude;
+    @Ignore
+    private String StringPhoto;
 
     public RouteEntity (){
     }
@@ -110,5 +113,11 @@ public class RouteEntity {
     public void setEndLocation(Location location){
         endLatitude = location.getLatitude();
         endLongitude = location.getLongitude();
+    }
+    public String getStringPhoto() {
+        return StringPhoto;
+    }
+    public void setStringPhoto(String stringPhoto) {
+        StringPhoto = stringPhoto;
     }
 }
