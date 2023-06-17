@@ -8,7 +8,7 @@
         android:id="@+id/routeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/fab_margin"
         android:minHeight="@dimen/fab_margin"
         app:cardBackgroundColor="@color/gray_200"
@@ -24,14 +24,58 @@
             app:strokeColor="@color/orange_200"
             app:strokeWidth="@dimen/stroke_with" />
 
-        <TextView
-            android:id="@+id/routeTitleTextView"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:layout_margin="@dimen/fab_margin"
-            android:text="@string/title" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/routeTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/title"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="0.20"
+                android:minHeight="@dimen/font_size_accessibility_bar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/accessibility"
+                    android:textColor="@color/orange_200"
+                    android:textSize="@dimen/font_size_accessibility_bar" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:minWidth="@dimen/fab_margin" />
+
+                <ProgressBar
+                    android:id="@+id/routeAccessibilityProgressBar"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="5"
+                    android:min="0"
+                    android:progressBackgroundTint="@color/gray_500"
+                    android:progressTint="@color/orange_200" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/routeUserTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:text="@string/user" />
+        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

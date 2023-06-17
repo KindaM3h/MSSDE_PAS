@@ -15,6 +15,9 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import upm.cabd.mssde_pas.DatosAbiertosParques.Location;
 import upm.cabd.mssde_pas.localDb.AppDataBase;
 import upm.cabd.mssde_pas.localDb.RouteEntity;
@@ -73,18 +76,14 @@ public class AddRouteActivity extends AppCompatActivity {
         addRouteSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Location startLocation = new Location();
-                startLocation.setLatitude(40.8);
-                startLocation.setLongitude(-3.5);
-                Location endLocation = new Location();
-                endLocation.setLatitude(41.8);
-                endLocation.setLongitude(-2.5);
-                // TODO: Figure out how to include Location data.
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 routeEntity = new RouteEntity();
+                assert firebaseUser != null;
+                routeEntity.setUser(firebaseUser.getEmail());
                 routeEntity.setName(String.valueOf(addRouteName.getText()));
                 routeEntity.setDescription(String.valueOf(addRouteDescription.getText()));
-                routeEntity.setUserGrade(addRouteUserRating.getNumStars());
-                routeEntity.setUserAccessibility(addRouteUserAccessibility.getScrollX());
+                routeEntity.setUserGrade(addRouteUserRating.getRating());
+                routeEntity.setUserAccessibility(addRouteUserAccessibility.getProgress());
                 AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
                 appDataBase.routeDAO().insertRoute(routeEntity);
                 Intent intent = new Intent(view.getContext(), MainActivity.class);

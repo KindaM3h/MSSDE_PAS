@@ -5,7 +5,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {ParkEntity.class, RouteEntity.class}, version = 3)
+@Database(entities = {ParkEntity.class, RouteEntity.class}, version = 5)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract ParkDAO parkDAO();
     public abstract RouteDAO routeDAO();

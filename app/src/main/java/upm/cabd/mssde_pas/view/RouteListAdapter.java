@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,8 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     @Override
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
         holder.routeTitleTextView.setText(routeList.get(position).getName());
+        holder.routeUserTextView.setText(routeList.get(position).getUser());
+        holder.routeAccessibilityProgressBar.setProgress(routeList.get(position).getUserAccessibility());
         Picasso.get()
                 .load(routeList.get(position).getStringPhoto())
                 .placeholder(R.drawable.outline_park_24)
@@ -59,12 +62,16 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     static class RouteViewHolder extends RecyclerView.ViewHolder {
         private final CardView routeCardView;
         private final TextView routeTitleTextView;
+        private final  TextView routeUserTextView;
+        private final ProgressBar routeAccessibilityProgressBar;
         private final ImageView routePhoto;
 
         public RouteViewHolder(@NonNull View itemView) {
             super(itemView);
             routeCardView = itemView.findViewById(R.id.routeCardView);
             routeTitleTextView = itemView.findViewById(R.id.routeTitleTextView);
+            routeUserTextView = itemView.findViewById(R.id.routeUserTextView);
+            routeAccessibilityProgressBar = itemView.findViewById(R.id.routeAccessibilityProgressBar);
             routePhoto = itemView.findViewById(R.id.imageView);
         }
     }

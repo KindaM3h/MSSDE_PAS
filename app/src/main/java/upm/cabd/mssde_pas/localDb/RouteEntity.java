@@ -12,12 +12,14 @@ public class RouteEntity {
     static public final String routeTABLA = "Route";
     @PrimaryKey(autoGenerate = true)
     protected int uid;
+    @ColumnInfo(name = "user")
+    private String user;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "description")
     private String description;
     @ColumnInfo(name = "userGrade")
-    private int userGrade;
+    private float userGrade;
     @ColumnInfo(name = "userAccessibility")
     private int userAccessibility;
     @ColumnInfo(name = "startLatitude")
@@ -30,6 +32,8 @@ public class RouteEntity {
     private double endLongitude;
     @Ignore
     private String StringPhoto;
+    @ColumnInfo(name = "sensorDataRoomKey")
+    private int sensorDataRoomKey;
 
     public RouteEntity (){
     }
@@ -46,6 +50,12 @@ public class RouteEntity {
         this.name = name;
     }
 
+    public void setUser(String user) {
+        this.user = user;
+    }
+    public String getUser() {
+        return user;
+    }
     public String getDescription() {
         return description;
     }
@@ -54,11 +64,11 @@ public class RouteEntity {
         this.description = description;
     }
 
-    public int getUserGrade() {
+    public float getUserGrade() {
         return userGrade;
     }
 
-    public void setUserGrade(int userGrade) {
+    public void setUserGrade(float userGrade) {
         this.userGrade = userGrade;
     }
 
@@ -119,5 +129,11 @@ public class RouteEntity {
     }
     public void setStringPhoto(String stringPhoto) {
         StringPhoto = stringPhoto;
+    }
+    public int getSensorDataRoomKey() {
+        return sensorDataRoomKey;
+    }
+    public void setSensorDataRoomKey(int sensorDataRoomKey) {
+        this.sensorDataRoomKey = sensorDataRoomKey;
     }
 }
