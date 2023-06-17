@@ -18,8 +18,12 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,9 +42,11 @@ import upm.cabd.mssde_pas.view.RouteListAdapter;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity";
     private static final String API_BASE_URL = "https://datos.madrid.es/egob/catalogo/";
+    private static final String FIREBASE_DB_PATH = "routes";
     private IDatosAbiertosParquesRESTAPIService apiService;
     private AppDataBase appDataBase;
     private RouteListAdapter routeListAdapter;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         apiService = retrofit.create(IDatosAbiertosParquesRESTAPIService.class);
         appDataBase = AppDataBase.getDbInstance(getApplicationContext());
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference(FIREBASE_DB_PATH);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -74,13 +82,27 @@ public class MainActivity extends AppCompatActivity {
                 int position = viewHolder.getAdapterPosition();
                 RouteEntity routeEntity = routeListAdapter.returnCurrentRouteEntity(position);
                 if (direction == ItemTouchHelper.LEFT){
-                    //TODO: Do something!
+                    //TODO: Delete form local DB
+                    routeListAdapter.deleteRoute(position);
+                    toast.setText(getText(R.string.deleted) + " " + routeEntity.getName());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }
                 if (direction == ItemTouchHelper.RIGHT){
-                    //TODO: Do something else!
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("user", routeEntity.getUser());
+                    map.put("name", routeEntity.getName());
+                    map.put("description", routeEntity.getDescription());
+                    map.put("userGrade", routeEntity.getUserGrade());
+                    map.put("userAccessibility", routeEntity.getUserAccessibility());
+                    databaseReference.setValue(map);
+                    toast.setText( "Added to Firebase Database " + routeEntity.getName());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
+        itemTouchHelper.attachToRecyclerView(recyclerViewMain);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

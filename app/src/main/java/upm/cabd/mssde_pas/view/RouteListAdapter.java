@@ -83,4 +83,8 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
     public RouteEntity returnCurrentRouteEntity (int position){
         return routeList.get(position);
     }
+    public void deleteRoute (int position){
+        routeList.remove(position);
+        notifyItemRemoved(position);
+    }
 }

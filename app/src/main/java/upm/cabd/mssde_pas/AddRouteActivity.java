@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import upm.cabd.mssde_pas.localDb.RouteEntity;
 public class AddRouteActivity extends AppCompatActivity {
 
     private RouteEntity routeEntity;
+    private static final String LOG_TAG = "LoginActivity";
     LocationManager mLocationManager;
     private static final String [] permission = {"Manifest.permission.ACCESS_COARSE_LOCATION"};
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
@@ -55,9 +57,7 @@ public class AddRouteActivity extends AppCompatActivity {
                             toast.setDuration(Toast.LENGTH_SHORT);
                             toast.show();
                         } else {
-                            toast.setText("Permission denied " + permissions[i]);
-                            toast.setDuration(Toast.LENGTH_SHORT);
-                            toast.show();
+                            Log.e(LOG_TAG, "Permission denied " + permissions[i]);
                         }
                         i = i + 1;
                     }
@@ -73,22 +73,19 @@ public class AddRouteActivity extends AppCompatActivity {
         EditText addRouteDescription = findViewById(R.id.addRouteDescription);
         RatingBar addRouteUserRating = findViewById(R.id.addRouteUserRating);
         SeekBar addRouteUserAccessibility = findViewById(R.id.addRouteUserAccessibility);
-        addRouteSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                routeEntity = new RouteEntity();
-                assert firebaseUser != null;
-                routeEntity.setUser(firebaseUser.getEmail());
-                routeEntity.setName(String.valueOf(addRouteName.getText()));
-                routeEntity.setDescription(String.valueOf(addRouteDescription.getText()));
-                routeEntity.setUserGrade(addRouteUserRating.getRating());
-                routeEntity.setUserAccessibility(addRouteUserAccessibility.getProgress());
-                AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
-                appDataBase.routeDAO().insertRoute(routeEntity);
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-                startActivity(intent);
-            }
+        addRouteSave.setOnClickListener(view -> {
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            routeEntity = new RouteEntity();
+            assert firebaseUser != null;
+            routeEntity.setUser(firebaseUser.getEmail());
+            routeEntity.setName(String.valueOf(addRouteName.getText()));
+            routeEntity.setDescription(String.valueOf(addRouteDescription.getText()));
+            routeEntity.setUserGrade(addRouteUserRating.getRating());
+            routeEntity.setUserAccessibility(addRouteUserAccessibility.getProgress());
+            AppDataBase appDataBase = AppDataBase.getDbInstance(getApplicationContext());
+            appDataBase.routeDAO().insertRoute(routeEntity);
+            Intent intent = new Intent(view.getContext(), MainActivity.class);
+            startActivity(intent);
         });
     }
 }
